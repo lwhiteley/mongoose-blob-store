@@ -7,6 +7,7 @@ module.exports = function (opts) {
     let self = {};
     let instance;
     const options = Object.assign({}, opts);
+    const mongooseNotConnectedErr = new Error('Mongoose not connected!');
 
     options.mongooseConnection.on('connected', function () {
         var gridfs = require('mongoose-gridfs')(options);
@@ -14,15 +15,14 @@ module.exports = function (opts) {
         debug('mongoose connected');
     });
 
-
     self.resource = () => {
         if (instance) return instance.model;
-        throw new Error('Mongoose was never connected!');
+        throw mongooseNotConnectedErr;
     }
 
     self.storage = () => {
         if (instance) return instance;
-        throw new Error('Mongoose was never connected!');
+        throw mongooseNotConnectedErr;
     }
 
     self.createWriteStream = function (opts, cb) {
