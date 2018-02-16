@@ -1,0 +1,38 @@
+{
+  "name": "mongoose-blob-store",
+  "version": "0.0.1",
+  "description": "store blobs using mongoose gridfs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lwhiteley/mongoose-blob-store.git"
+  },
+  "keywords": [
+    "mongoose",
+    "gridfs",
+    "grid-fs",
+    "blob",
+    "blob-store",
+    "abstract-blob-store",
+    "file"
+  ],
+  "author": "Layton Whiteley",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/lwhiteley/mongoose-blob-store/issues"
+  },
+  "homepage": "https://github.com/lwhiteley/mongoose-blob-store#readme",
+  "dependencies": {
+    "debug": "^3.1.0",
+    "duplexify": "^3.5.3",
+    "mime-types": "^2.1.17",
+    "mongoose-gridfs": "^0.3.2",
+    "through2": "^2.0.3"
+  },
+  "devDependencies": {
+    "mongoose": "^5.0.5"
+  }
+}
