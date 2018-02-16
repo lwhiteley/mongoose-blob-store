@@ -9,6 +9,10 @@ module.exports = function (opts) {
     const options = Object.assign({}, opts);
     const mongooseNotConnectedErr = new Error('Mongoose not connected!');
 
+    if (!options.mongooseConnection) {
+        throw new Error('options.mongooseConnection is required!');
+    }
+
     options.mongooseConnection.on('connected', function () {
         var gridfs = require('mongoose-gridfs')(options);
         instance = gridfs;

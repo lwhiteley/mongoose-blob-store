@@ -9,6 +9,7 @@ eg. Usage
 
 ```js
     const store = require('mongoose-blob-store');
+    // connect mongoose to mongo db then use the connection
     const mongooseConnection = require('mongoose').connection;
     const blobStorage = store({
         mongooseConnection,
