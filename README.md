@@ -1,6 +1,12 @@
 mongoose-blob-store
 ==================
 
+store blobs using mongoose gridfs
+
+[![npm version](https://badge.fury.io/js/mongoose-blob-store.svg)](https://badge.fury.io/js/mongoose-blob-store)
+
+
+
 eg. Usage
 
 ```js
