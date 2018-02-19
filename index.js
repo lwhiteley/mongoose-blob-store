@@ -13,11 +13,34 @@ module.exports = function (opts) {
         throw new Error('options.mongooseConnection is required!');
     }
 
-    options.mongooseConnection.on('connected', function () {
+    function addFileds (schema, options) {
+        // schema.add({ 
+        //     key: { type: String},
+        // });
+        // var virtual = schema.virtual('key');
+        // virtual.get(function () {
+        //     return this._id;
+        // });
+        schema.set('toJSON', { transform: function (doc, ret, opt) {
+        ret.key = ret._id;
+        return ret
+      }})
+      }
+
+    const setup = function () {
         var gridfs = require('mongoose-gridfs')(options);
         instance = gridfs;
+        instance.model.schema.plugin(addFileds);
         debug('mongoose connected');
-    });
+    };
+
+    if (options.mongooseConnection.readyState) {
+        debug('mongoose already connected, setup blob store');
+        setup();
+    } else {
+        debug('waiting on mongoose connection to setup blob store');
+        options.mongooseConnection.on('connected', setup);
+    }
 
     self.resource = () => {
         if (instance) return instance.model;
@@ -29,38 +52,84 @@ module.exports = function (opts) {
         throw mongooseNotConnectedErr;
     }
 
+    const sanitizeOpts = (opts) => {
+        if(!opts) return opts;
+
+        if (typeof opts === 'string'){
+            opts = {
+                key: opts,
+            };
+        }
+
+        opts.filename = opts.filename || opts.key || opts.name;
+        opts.key = opts.key || opts.filename || opts.name;
+        return opts;
+    }
+
     self.createWriteStream = function (opts, cb) {
         const proxy = through2();
-        var filename = opts.filename || opts.key;
+        opts = sanitizeOpts(opts);
+        var filename = opts.filename;
         var contentType;
         if (filename) {
             contentType = mime.lookup(filename);
         }
-
-        self.resource().gridfs.write({
+        const blob = {
             _id: opts.key,
             filename,
             contentType,
             metadata: opts,
-        },
-        proxy,
-        function (error, createdFile) {
-            if (error) debug('error creating file', error);
-            cb(error, createdFile);
-        });
+        };
+
+        self.resource().gridfs.write(
+            blob,
+            proxy,
+            function (error, createdFile) {
+                if (error) debug('error creating file', error);
+
+                if (createdFile) {
+                    createdFile.key = createdFile._id;
+                }
+                cb(error, createdFile);
+            });
 
         return proxy;
     };
 
     self.createReadStream = function (opts) {
         var proxy = duplexify();
+        opts = sanitizeOpts(opts);
+        
         var stream = self.resource().readById(opts.key);
+        proxy.on('error', (err) => {
+            err.notFound = true;
+            return proxy.destroy(err);
+        });
         proxy.setReadable(stream);
+        
+        return proxy;
+    };
+
+    self.exists = function (opts, done) {
+        var proxy = duplexify();
+        opts = sanitizeOpts(opts);
+        var stream = self.resource().readById(opts.key, (err, file) => {
+            if (err && err.message && err.message.indexOf('not opened for writing') != -1) {
+                debug('expected error when file is missing');
+                err = null;
+            }
+
+            if (err) debug('error finding file', err);
+            
+            done(err, !!file);
+        });
         return proxy;
     };
 
     self.remove = function (opts, cb) {
         const prop = '_id';
+        opts = sanitizeOpts(opts);
+        debug('calling remove file', opts);
         self.storage().unlink({ [prop]: opts.key }, function (error) {
             let result;
             if (!error) {

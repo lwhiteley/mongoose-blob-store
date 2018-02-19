@@ -4,7 +4,7 @@
   "description": "store blobs using mongoose gridfs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "DEBUG=\"mongoose-blob*\" node test.js"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,8 @@
     "through2": "^2.0.3"
   },
   "devDependencies": {
-    "mongoose": "^5.0.6"
+    "abstract-blob-store": "^3.3.4",
+    "mongoose": "^5.0.6",
+    "tape": "^4.9.0"
   }
 }

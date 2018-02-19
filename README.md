@@ -25,6 +25,9 @@ eg. Usage
 
     //remove
     blobStorage.remove(opts, cb);
+
+    //check if file exists
+    blobStorage.exists(opts, cb);
 ```
 
 pull requests are welcome
