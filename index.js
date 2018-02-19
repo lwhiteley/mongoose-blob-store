@@ -13,24 +13,9 @@ module.exports = function (opts) {
         throw new Error('options.mongooseConnection is required!');
     }
 
-    function addFileds (schema, options) {
-        // schema.add({ 
-        //     key: { type: String},
-        // });
-        // var virtual = schema.virtual('key');
-        // virtual.get(function () {
-        //     return this._id;
-        // });
-        schema.set('toJSON', { transform: function (doc, ret, opt) {
-        ret.key = ret._id;
-        return ret
-      }})
-      }
-
     const setup = function () {
         var gridfs = require('mongoose-gridfs')(options);
         instance = gridfs;
-        instance.model.schema.plugin(addFileds);
         debug('mongoose connected');
     };
 
