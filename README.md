@@ -4,6 +4,10 @@ mongoose-blob-store
 store blobs using mongoose gridfs
 
 [![npm version](https://badge.fury.io/js/mongoose-blob-store.svg)](https://badge.fury.io/js/mongoose-blob-store)
+[![Build Status](https://travis-ci.org/lwhiteley/mongoose-blob-store.svg?branch=master)](https://travis-ci.org/lwhiteley/mongoose-blob-store)
+
+
+compatible with the [abstract-blob-store](https://github.com/maxogden/abstract-blob-store) API and passes its test suite
 
 eg. Usage
 
