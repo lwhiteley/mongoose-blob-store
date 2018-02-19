@@ -10,6 +10,11 @@ var BlobStore = require('./')
   mongoose
   .connect('mongodb://localhost/mongoose-blob-store')
   .then(() => {
+
+    test.onFinish(() => {
+        mongoose.connection.close();
+    })
+
     const common = {
         setup: function(t, cb) {
           const store = BlobStore({
@@ -24,7 +29,6 @@ var BlobStore = require('./')
           else cb()
         }
       }
-    abstractBlobTests(test, common)
-    // mongoose.connection.close();
+    abstractBlobTests(test, common);
   });
 
