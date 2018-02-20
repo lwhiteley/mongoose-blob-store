@@ -4,7 +4,8 @@
   "description": "store blobs using mongoose gridfs",
   "main": "index.js",
   "scripts": {
-    "test": "DEBUG=\"mongoose-blob*\" node test.js"
+    "test": "DEBUG=\"mongoose-blob*\" node test.js",
+    "postpublish": "git push --follow-tags"
   },
   "repository": {
     "type": "git",

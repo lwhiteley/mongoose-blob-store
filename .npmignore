@@ -1,3 +1,5 @@
 tmp
 .idea
 .DS_Store
+.travis.yml
+test.js
