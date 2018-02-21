@@ -28,8 +28,7 @@ module.exports = function (opts) {
     }
 
     self.resource = () => {
-        if (instance) return instance.model;
-        throw mongooseNotConnectedErr;
+        return self.storage().model;
     }
 
     self.storage = () => {
