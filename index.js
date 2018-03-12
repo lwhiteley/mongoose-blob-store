@@ -1,7 +1,7 @@
 const mime = require('mime-types')
 const through2 = require('through2')
 const duplexify = require('duplexify');
-var debug = require('debug')('mongoose-blob-store');
+const debug = require('debug')('mongoose-blob-store');
 
 module.exports = function (opts) {
     let self = {};
