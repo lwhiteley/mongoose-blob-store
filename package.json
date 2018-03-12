@@ -1,6 +1,6 @@
 {
   "name": "mongoose-blob-store",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "store blobs using mongoose gridfs",
   "main": "index.js",
   "scripts": {
