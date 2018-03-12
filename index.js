@@ -14,14 +14,15 @@ module.exports = function (opts) {
     }
 
     const setup = function () {
+        debug(`mongoose connected, readyState(${options.mongooseConnection.readyState})`);
         var gridfs = require('mongoose-gridfs')(options);
         instance = gridfs;
-        debug(`mongoose connected, readyState(${options.mongooseConnection.readyState})`);
+        debug('mongoose blob store ready');
     };
 
     debug(`mongoose readyState(${options.mongooseConnection.readyState})`);
     if (options.mongooseConnection.readyState == 1) {
-        debug(`mongoose already connected, setup blob store`);
+        debug('mongoose already connected, setup blob store');
         setup();
     } else {
         debug('waiting on mongoose connection to setup blob store');
