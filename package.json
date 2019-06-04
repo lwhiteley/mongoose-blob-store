@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "DEBUG=\"mongoose-blob*\" node test.js",
-    "postversion": "git push --follow-tags"
+    "publish": "git push origin --tags && git push origin",
+    "release:patch": "npm version patch && npm publish --access public",
+    "release:minor": "npm version minor && npm publish --access public",
+    "release:major": "npm version major && npm publish --access public"
   },
   "repository": {
     "type": "git",
@@ -35,7 +38,7 @@
   },
   "devDependencies": {
     "abstract-blob-store": "^3.3.4",
-    "mongoose": "^5.0.6",
+    "mongoose": "^5.5.12",
     "tape": "^4.9.0"
   }
 }
