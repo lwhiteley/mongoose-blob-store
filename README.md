@@ -1,5 +1,4 @@
-mongoose-blob-store
-==================
+# mongoose-blob-store
 
 store blobs using mongoose gridfs
 
@@ -12,29 +11,29 @@ compatible with the [abstract-blob-store](https://github.com/maxogden/abstract-b
 
 eg. Usage
 
+> Please note that the configuration has a breaking change since v0.\*
+
 ```js
-    const store = require('mongoose-blob-store');
-    // connect mongoose to mongo db then use the connection
-    const mongooseConnection = require('mongoose').connection;
-    const blobStorage = store({
-        mongooseConnection,
-        collection: 'attachments',
-        model: 'Attachment',
-    });
+const store = require('mongoose-blob-store');
+// connect mongoose to mongo db then use the connection
+const mongooseConnection = require('mongoose').connection;
+const blobStorage = store({
+  mongooseConnection,
+  collection: 'attachments',
+  modelName: 'Attachment',
+});
 
-    //write
-    blobStorage.createWriteStream(opts, cb);
+//write
+blobStorage.createWriteStream(opts, cb);
 
-    //read
-    const stream = blobStorage.createReadStream(opts);
+//read
+const stream = blobStorage.createReadStream(opts);
 
-    //remove
-    blobStorage.remove(opts, cb);
+//remove
+blobStorage.remove(opts, cb);
 
-    //check if file exists
-    blobStorage.exists(opts, cb);
+//check if file exists
+blobStorage.exists(opts, cb);
 ```
 
 pull requests are welcome
-
-

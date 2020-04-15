@@ -30,15 +30,16 @@
   },
   "homepage": "https://github.com/lwhiteley/mongoose-blob-store#readme",
   "dependencies": {
-    "debug": "^3.1.0",
-    "duplexify": "^3.5.3",
-    "mime-types": "^2.1.17",
-    "mongoose-gridfs": "^0.3.2",
-    "through2": "^2.0.3"
+    "debug": "^4.1.1",
+    "duplexify": "^4.1.1",
+    "itypeof": "^1.1.2",
+    "mime-types": "^2.1.26",
+    "mongoose-gridfs": "^1.2.34",
+    "through2": "^3.0.1"
   },
   "devDependencies": {
-    "abstract-blob-store": "^3.3.4",
-    "mongoose": "^5.5.12",
-    "tape": "^4.9.0"
+    "abstract-blob-store": "^3.3.5",
+    "mongoose": "^5.9.9",
+    "tape": "^4.13.2"
   }
 }

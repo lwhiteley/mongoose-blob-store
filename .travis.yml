@@ -3,6 +3,4 @@ sudo: false
 services:
   - mongodb
 node_js:
-  - "8"
-  - "7"
-  - "6"
+  - "12"
